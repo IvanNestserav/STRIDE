@@ -1,0 +1,43 @@
+name: Stride
+options:
+  bundleIdPrefix: com.ivannestserav
+  deploymentTarget:
+    watchOS: "10.0"
+packages:
+  PacingCore:
+    path: Core
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    SWIFT_STRICT_CONCURRENCY: minimal
+    CODE_SIGN_STYLE: Automatic
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  Stride:
+    type: application
+    platform: watchOS
+    sources: [WatchApp]
+    dependencies:
+      - package: PacingCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.ivannestserav.stride.watch
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_WKApplication: YES
+        INFOPLIST_KEY_WKWatchOnly: YES
+        INFOPLIST_KEY_NSHealthShareUsageDescription: Stride reads running distance and heart rate to guide your pace.
+        INFOPLIST_KEY_NSHealthUpdateUsageDescription: Stride saves your completed running workout to Apple Health.
+        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: Stride collects elevation during your run for the post-run terrain summary.
+        INFOPLIST_KEY_WKBackgroundModes: [workout-processing]
+    entitlements:
+      path: WatchApp/Stride.entitlements
+      properties:
+        com.apple.developer.healthkit: true
+schemes:
+  Stride:
+    build:
+      targets:
+        Stride: all
+    run:
+      config: Debug
